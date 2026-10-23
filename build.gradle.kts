@@ -81,6 +81,12 @@ tasks.named("jvmProcessResources") {
     dependsOn(copyBrowserBundle)
 }
 
+tasks.register("test") {
+    group = "verification"
+    description = "Runs the tests for all targets."
+    dependsOn("allTests")
+}
+
 val jvmMainCompilation = kotlin.targets.getByName("jvm").compilations.getByName("main")
 
 tasks.register<JavaExec>("bootRun") {
