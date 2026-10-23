@@ -26,7 +26,7 @@ fun Site() {
             Title { Text("Compose SSR with Hydration and kotlinx.rpc") }
         }
         Body {
-            HydrationRoot(State("Press Me!"), Json::encodeToString) { initialState ->
+            HydrationRoot(State("Press Me!"), Json::encodeToString, hydrationId = "app") { initialState ->
                 App(initialState.initialMessage)
             }
         }
