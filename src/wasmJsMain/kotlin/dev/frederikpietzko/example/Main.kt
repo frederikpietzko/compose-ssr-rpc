@@ -6,10 +6,11 @@ import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.hydrateRoot
 
 @JsFun("message => console.error(message)")
-private external fun consoleError(message: String)
+external fun consoleError(message: String)
 
 fun main() {
     hydrateRoot(
+        hydrationId = "app",
         deserializeState = { Json.decodeFromString<State>(it) },
         onHydrationMismatch = { mismatch ->
             consoleError("Compose hydration failed; falling back to client rendering.\n${mismatch.stackTraceToString()}")

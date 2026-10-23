@@ -28,3 +28,24 @@ dependencyResolutionManagement {
         google()
     }
 }
+
+val localProperties = java.util.Properties().apply {
+    val propertiesFile = rootDir.resolve("local.properties")
+    if (propertiesFile.isFile) propertiesFile.inputStream().use(::load)
+}
+
+val composeHtmlCheckout = providers.gradleProperty("compose.html.checkout").orNull
+    ?: localProperties.getProperty("compose.html.checkout")
+
+composeHtmlCheckout?.let { checkoutPath ->
+    val checkoutDirectory = file(checkoutPath)
+    require(checkoutDirectory.resolve("settings.gradle.kts").isFile) {
+        "compose.html.checkout must point to a Compose HTML Gradle build: $checkoutDirectory"
+    }
+    includeBuild(checkoutDirectory) {
+        dependencySubstitution {
+            substitute(module("org.jetbrains.compose.html.eap:html-core-eap"))
+                .using(project(":html-core-eap"))
+        }
+    }
+}
