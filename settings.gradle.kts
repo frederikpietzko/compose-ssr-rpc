@@ -18,8 +18,11 @@ pluginManagement {
         id("org.jetbrains.compose").version(extra["compose.version"] as String)
         id("org.springframework.boot").version(extra["spring.boot.version"] as String)
         id("io.spring.dependency-management").version("1.1.7")
+        id("com.google.devtools.ksp").version(extra["ksp.version"] as String)
     }
 }
+
+include(":page-processor")
 
 dependencyResolutionManagement {
     repositories {

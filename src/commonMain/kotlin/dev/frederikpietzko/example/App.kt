@@ -2,6 +2,8 @@ package dev.frederikpietzko.example
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import dev.frederikpietzko.example.spring.plumbing.Page
+import dev.frederikpietzko.example.spring.plumbing.PageStateProvider
 import kotlinx.coroutines.launch
 import kotlinx.rpc.withService
 import kotlinx.serialization.json.Json
@@ -35,8 +37,11 @@ fun App(initialMessage: String) {
     }
 }
 
+interface SiteStateProvider : PageStateProvider<State>
+
+@Page(path = "/", state = SiteStateProvider::class)
 @Composable
-fun Site() {
+fun Site(state: State) {
     Html(attrs = { lang("en") }) {
         Head {
             Meta { attr("charset", "UTF-8") }
@@ -47,7 +52,7 @@ fun Site() {
             Title { Text("Compose SSR with Hydration and kotlinx.rpc") }
         }
         Body {
-            HydrationRoot(State("Press Me!"), Json::encodeToString, hydrationId = "app") { initialState ->
+            HydrationRoot(state, Json::encodeToString, hydrationId = "app") { initialState ->
                 App(initialState.initialMessage)
             }
         }

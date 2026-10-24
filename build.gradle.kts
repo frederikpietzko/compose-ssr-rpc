@@ -10,6 +10,7 @@ plugins {
     id("org.jetbrains.compose")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+    id("com.google.devtools.ksp")
 }
 
 group = "com.example"
@@ -64,6 +65,10 @@ kotlin {
         }
 
     }
+}
+
+dependencies {
+    add("kspJvm", project(":page-processor"))
 }
 
 val copyBrowserBundle = tasks.register<Sync>("copyBrowserBundle") {
