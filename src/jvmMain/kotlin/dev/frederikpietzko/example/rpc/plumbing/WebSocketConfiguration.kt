@@ -1,4 +1,4 @@
-package dev.frederikpietzko.example.plumbing
+package dev.frederikpietzko.example.rpc.plumbing
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.config.annotation.EnableWebSocket

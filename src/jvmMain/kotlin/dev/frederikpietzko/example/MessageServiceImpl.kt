@@ -1,6 +1,6 @@
 package dev.frederikpietzko.example
 
-import dev.frederikpietzko.example.plumbing.KrpcService
+import dev.frederikpietzko.example.rpc.plumbing.KrpcService
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.HydrationRoot
 import org.jetbrains.compose.web.renderHydratedFragment

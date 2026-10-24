@@ -1,4 +1,4 @@
-package dev.frederikpietzko.example.plumbing
+package dev.frederikpietzko.example.rpc.plumbing
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +12,9 @@ import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
 import org.springframework.web.socket.WebSocketSession
 import org.springframework.web.socket.handler.TextWebSocketHandler
+import java.io.EOFException
+import java.io.IOException
+import java.nio.channels.ClosedChannelException
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -64,9 +67,9 @@ class RpcWebsocketHandler<@Rpc Service : Any>(
     }
 
     private fun Throwable.isClientDisconnect(): Boolean =
-        this is java.io.EOFException ||
-                this is java.nio.channels.ClosedChannelException ||
-                (this is java.io.IOException && message?.contains("Broken pipe", ignoreCase = true) == true)
+        this is EOFException ||
+                this is ClosedChannelException ||
+                (this is IOException && message?.contains("Broken pipe", ignoreCase = true) == true)
 
     private fun getKrpcServer(session: WebSocketSession): RpcServer {
         return sessions.getOrPutIfMissing(session.id) { createKrpcServer(session) }

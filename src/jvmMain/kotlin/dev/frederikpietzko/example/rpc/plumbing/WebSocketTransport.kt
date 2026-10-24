@@ -1,4 +1,4 @@
-package dev.frederikpietzko.example.plumbing
+package dev.frederikpietzko.example.rpc.plumbing
 
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job

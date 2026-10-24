@@ -1,6 +1,6 @@
 package dev.frederikpietzko.example
 
-import dev.frederikpietzko.example.plumbing.EnableRpc
+import dev.frederikpietzko.example.rpc.plumbing.EnableRpc
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
